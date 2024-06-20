@@ -1,0 +1,11 @@
+{
+  "name": "proyectofinal---codo-a-codo",
+  "version": "1.0.0",
+  "description": "Proyecto Final del curso Backend Node Js - Comisión 24135",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Federico, Lila, Gabriela, Hernan",
+  "license": "ISC"
+}
