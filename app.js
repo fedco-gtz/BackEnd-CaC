@@ -1,64 +1,24 @@
 import express from 'express';
-import pool from './src/db/db.js';
+import { engine } from 'express-handlebars';
+import movieRoutes from './src/routes/movieRoutes.js';
 
 const app = express();
+const port = 3000;
 
-// Middlewares
+// Middleware //
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(express.json()); // Para parsear application/json
 
-// Endpoint para obtener los productos
-app.get('/api/productos', async (req, res) => {
-    try {
-        let filtros = req.query;
-        let consulta = 'SELECT * FROM productos';
-        let whereClause = '';
-        let values = [];
+// Express Handlebars //
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+app.set('views', './src/views');
 
-        if (filtros.nombre) {
-            whereClause += ` nombre LIKE ? AND`;
-            values.push(`%${filtros.nombre}%`);
-        }
+// Rutas //
+app.use('/', movieRoutes);
 
-        if (filtros.descripcion) {
-            whereClause += ` descripcion LIKE ? AND`;
-            values.push(`%${filtros.descripcion}%`);
-        }
-
-        if (filtros.precioMin) {
-            whereClause += ' precio >= ? AND';
-            values.push(parseInt(filtros.precioMin));
-        }
-
-        if (filtros.precioMax) {
-            whereClause += ' precio <= ? AND';
-            values.push(parseInt(filtros.precioMax));
-        }
-
-        if (whereClause !== '') {
-            consulta += ' WHERE' + whereClause.slice(0, -4); 
-        }
-
-        if (filtros.orden) {
-            consulta += ` ORDER BY precio ${filtros.orden}`;
-        }
-
-        const connection = await pool.getConnection();
-        const [rows] = await connection.query(consulta, values);
-        connection.release();
-        res.json(rows);
-    } catch (error) {
-        console.error('Hubo un error al obtener los productos:', error);
-        res.status(500).json({ error: 'Hubo un error al obtener los productos' });
-    }
-});
-
-// Ruta por defecto para manejar 404
-app.get('*', (req, res) => {
-    res.status(404).send('404 | Page not found');
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+// Servidor //
+app.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}`);
 });
