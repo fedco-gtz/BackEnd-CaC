@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Agregar Producto</title>
+    <link rel="stylesheet" href="../../public/css/styles.css">
+</head>
+
+<body>
+    <main id="main" class="main">
+        <section class="adminSection">
+            <h1 class="tituloSection">Agregar Producto</h1>
+            <form class="formularioProducto" action="/admin" method="POST">
+                <div class="formGroup">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="formGroup">
+                    <label for="imagen">Imagen:</label>
+                    <input type="text" id="imagen" name="imagen" required>
+                </div>
+                <div class="formGroup">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+                </div>
+                <div class="formGroup">
+                    <label for="aclamada">Aclamada:</label>
+                    <input type="checkbox" id="aclamada" name="aclamada">
+                </div>
+                <div class="formGroup botonGroup">
+                    <button type="submit" class="botonEnviar">Agregar Producto</button>
+                </div>
+            </form>
+
+            <hr>
+            <h1 class="tituloSection">Gestión de Productos</h1>
+            <table class="productosTable">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Imagen</th>
+                        <th>Descripción</th>
+                        <th>Aclamada</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each productos}}
+                    <tr>
+                        <td>{{nombre}}</td>
+                        <td><img src="{{img}}" alt="{{nombre}}"></td>
+                        <td>{{descripcion}}</td>
+                        <td>{{#if aclamado}}Sí{{else}}No{{/if}}</td>
+                        <td>
+                            <a href="/admin/modificar/{{nombre}}" class="botonModificar">Modificar</a>
+                            <form action="/admin/eliminar/{{nombre}}" method="POST" class="formEliminar">
+                                <button type="submit" class="botonEliminar">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
+</html>

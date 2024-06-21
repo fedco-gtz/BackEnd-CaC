@@ -17,8 +17,11 @@ app.set('views', './src/views');
 
 // Rutas //
 app.use('/', movieRoutes);
+app.use('/admin', movieRoutes);
 
 // Servidor //
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+
