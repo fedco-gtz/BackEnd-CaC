@@ -18,21 +18,31 @@
             class="peliculasTendencia">
             <h3 class="tituloSection">Las tendencias de hoy</h3>
             <div class="peliculas">
-                {{#each productos}}
-                <a href="./pages/detalle.html">
-                    <div class="pelicula">
-                        <div>
-                            <img class="imgTendencia" src="{{this.img}}" alt="{{this.nombre}}" loading="lazy">
-                            <div class="tituloPelicula">
-                                <h4>{{this.nombre}}</h4>
+                <div class="peliculas">
+                    {{#each productos}}
+                    {{#unless this.aclamado}}
+                    <a href="./pages/detalle.html">
+                        <div class="pelicula">
+                            <div>
+                                <img class="imgTendencia" src="{{this.img}}" alt="{{this.nombre}}" loading="lazy">
+                                <div class="tituloPelicula">
+                                    <h4>{{this.nombre}}</h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-                {{/each}}
+                    </a>
+                    {{/unless}}
+                    {{/each}}
+                </div>
+                <button class="boton anterior">Anterior</button>
+                <button class="boton siguiente">Siguiente</button>
+
+                <button id="anterior" class="boton anterior"
+                    onclick="cambiarPagina({{currentPage-1}})">Anterior</button>
+                <button id="siguiente" class="boton siguiente" onclick="cambiarPagina({{nextPage}})">Siguiente</button>
+
             </div>
-            <button class="boton anterior">Anterior</button>
-            <button class="boton siguiente">Siguiente</button>
+
         </section>
         <hr>
         <section data-aos="fade-up" data-aos-offset="200" data-aos-delay="100" data-aos-duration="2000"

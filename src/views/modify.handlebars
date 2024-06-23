@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Modificar Producto</title>
+    <link rel="stylesheet" href="../../public/css/styles.css">
+</head>
+<body>
+    <main id="main" class="main">
+        <section class="adminSection">
+            <h1 class="tituloSection">Modificar Producto</h1>
+            <form class="formularioProducto" action="/admin" method="POST">
+                <div class="formGroup">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" value="{{producto.nombre}}" required>
+                </div>
+                <div class="formGroup">
+                    <label for="imagen">Imagen:</label>
+                    <input type="text" id="imagen" name="imagen" value="{{producto.img}}" required>
+                </div>
+                <div class="formGroup">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" required>{{producto.descripcion}}</textarea>
+                </div>
+                <div class="formGroup">
+                    <label for="aclamada">Aclamada:</label>
+                    <input type="checkbox" id="aclamada" name="aclamada" {{#if producto.aclamado}}checked{{/if}}>
+                </div>
+                <div class="formGroup botonGroup">
+                    <button type="submit" class="botonEnviar">Guardar Cambios</button>
+                </div>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
