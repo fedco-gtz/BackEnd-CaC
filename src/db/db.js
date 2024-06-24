@@ -5,6 +5,7 @@ const pool = createPool({
     user: 'root',
     password: '',
     database: 'peliculas',
+    port: 3306,
     waitForConnections: true,
     connectionLimit: 5
 });

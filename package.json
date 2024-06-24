@@ -9,7 +9,7 @@
     "dev": "nodemon app.js",
     "start": "node app.js"
   },
-  "author": "Federico, Lila, Gabriela, Hernan",
+  "author": "GUTIERREZ, Federico; LEDESMA, Hernan; PALAZZO, Lila y Gabriela",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2",
