@@ -1,9 +1,11 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import movieRoutes from './src/routes/movieRoutes.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.APP_PORT || 3001;
 
 // Middleware //
 app.use(express.json());
