@@ -6,13 +6,8 @@ const router = Router();
 // Ruta para obtener y renderizar productos en home.handlebars
 router.get('/', async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 10;
-        const offset = (page - 1) * limit;
-
-        const consulta = 'SELECT nombre, img, descripcion, aclamado FROM catalogo LIMIT ? OFFSET ?';
-        const [rows] = await pool.query(consulta, [limit, offset]);
-
+        const consulta = 'SELECT nombre, img, descripcion, aclamado FROM catalogo';
+        const [rows] = await pool.query(consulta);
         const productos = rows.map(producto => ({
             nombre: producto.nombre,
             img: `../images/pages/catalogue/${producto.img}`,
@@ -20,19 +15,15 @@ router.get('/', async (req, res) => {
             aclamado: producto.aclamado === 1 ? true : false,
         }));
 
-        const nextPage = page + 1; // Calcula la siguiente página
-
-        res.render('home', { productos, currentPage: page, nextPage });
-
+        res.render('home', { productos });
     } catch (error) {
         console.error('Hubo un error al obtener los productos:', error);
         res.status(500).json({ error: 'Hubo un error al obtener los productos' });
     }
 });
 
-
 // Ruta para obtener y renderizar productos en admin.handlebars
-router.get('/admin', async (req, res) => {
+router.get('/adminMovie', async (req, res) => {
     try {
         const consulta = 'SELECT nombre, img, descripcion, aclamado FROM catalogo';
         const [rows] = await pool.query(consulta);
@@ -44,7 +35,7 @@ router.get('/admin', async (req, res) => {
             aclamado: producto.aclamado === 1 ? true : false,
         }));
 
-        res.render('admin', { productos });
+        res.render('adminMovie', { productos });
 
     } catch (error) {
         console.error('Hubo un error al obtener los productos:', error);
@@ -53,7 +44,7 @@ router.get('/admin', async (req, res) => {
 });
 
 // Ruta para agregar un nuevo producto a la base de datos y mostrarlo en admin.handlebars
-router.post('/admin', async (req, res) => {
+router.post('/adminMovie', async (req, res) => {
     const { nombre, imagen, descripcion, aclamada } = req.body;
     
     try {
@@ -62,7 +53,7 @@ router.post('/admin', async (req, res) => {
         const consulta = 'INSERT INTO catalogo (nombre, img, descripcion, aclamado) VALUES (?, ?, ?, ?)';
         await pool.query(consulta, [nombre, imagen, descripcion, aclamado]);
 
-        res.redirect('/admin');
+        res.redirect('/adminMovie');
 
     } catch (error) {
         console.error('Hubo un error al agregar el producto:', error);
@@ -71,14 +62,14 @@ router.post('/admin', async (req, res) => {
 });
 
 // Ruta para eliminar un nuevo producto y sacarlo del admin.handlebars
-router.post('/admin/eliminar/:nombre', async (req, res) => {
+router.post('/adminMovie/eliminar/:nombre', async (req, res) => {
     const nombre = req.params.nombre;
 
     try {
         const consulta = 'DELETE FROM catalogo WHERE nombre = ?';
         await pool.query(consulta, [nombre]);
 
-        res.redirect('/admin');
+        res.redirect('/adminMovie');
 
     } catch (error) {
         console.error('Hubo un error al eliminar el producto:', error);
@@ -87,7 +78,7 @@ router.post('/admin/eliminar/:nombre', async (req, res) => {
 });
 
 // Ruta para manejar la modificación de productos
-router.get('/admin/modificar/:nombre', async (req, res) => {
+router.get('/adminMovie/modificar/:nombre', async (req, res) => {
     const nombre = req.params.nombre; // Obtiene el nombre del producto de los parámetros de la URL
 
     try {
@@ -104,6 +95,11 @@ router.get('/admin/modificar/:nombre', async (req, res) => {
         console.error('Hubo un error al obtener el producto:', error); // Si ocurre un error al realizar la consulta SQL, se muestra en la consola
         res.status(500).json({ error: 'Hubo un error al obtener el producto' }); // Devuelve un código de estado 500 (error interno del servidor) y un mensaje JSON
     }
+});
+
+// Ruta para obtener y renderizar productos en register.handlebars
+router.get('/register', async (req, res) => {
+    res.render('register', { isRegisterPage: true });
 });
 
 export default router;
