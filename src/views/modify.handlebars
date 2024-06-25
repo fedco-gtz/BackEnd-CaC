@@ -7,31 +7,26 @@
     <link rel="stylesheet" href="../../public/css/styles.css">
 </head>
 <body>
-    <main id="main" class="main">
-        <section class="adminSection">
-            <h1 class="tituloSection">Modificar Producto</h1>
-            <form class="formularioProducto" action="/adminMovie" method="POST">
-                <div class="formGroup">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" value="{{producto.nombre}}" required>
-                </div>
-                <div class="formGroup">
-                    <label for="imagen">Imagen:</label>
-                    <input type="text" id="imagen" name="imagen" value="{{producto.img}}" required>
-                </div>
-                <div class="formGroup">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea id="descripcion" name="descripcion" rows="4" required>{{producto.descripcion}}</textarea>
-                </div>
-                <div class="formGroup">
-                    <label for="aclamada">Aclamada:</label>
-                    <input type="checkbox" id="aclamada" name="aclamada" {{#if producto.aclamado}}checked{{/if}}>
-                </div>
-                <div class="formGroup botonGroup">
-                    <button type="submit" class="botonEnviar">Guardar Cambios</button>
-                </div>
-            </form>
-        </section>
-    </main>
+<h1>Modificar Producto</h1>
+<form action="/adminMovie/modificar/{{producto.id}}" method="POST">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{producto.nombre}}">
+    </div>
+    <div>
+        <label for="img">Imagen:</label>
+        <input type="text" id="img" name="img" value="{{producto.img}}">
+    </div>
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion">{{producto.descripcion}}</textarea>
+    </div>
+    <div>
+        <label for="aclamado">Aclamado:</label>
+        <input type="checkbox" id="aclamado" name="aclamado" {{#if producto.aclamado}}checked{{/if}}>
+    </div>
+    <button type="submit">Modificar</button>
+</form>
+
 </body>
 </html>
