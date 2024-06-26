@@ -734,9 +734,7 @@ body {
     opacity: 0.8;
 }
 
-
-
-/*ESTILOS ESCRITORIO PARA PAGINA Registrarse */
+/*ESTILOS ESCRITORIO PARA PAGINA REGISTRARSE */
 .bodyRegistrarse {
     height: 100vh;
     background: linear-gradient(to right top, #24242473, #24242473), url(../images/pages/bg-register.jpg);
@@ -754,7 +752,6 @@ body {
             font-weight: 700;
             font-size: 1.2rem;
 
-            /*animacion hover*/
             &:hover {
                 animation: tilt-n-move-shaking 0.25s infinite;
             }
@@ -762,8 +759,6 @@ body {
     }
 
     .main {
-
-        /*seccion de registrarse.html*/
         .seccionRegistrarse {
             background-color: rgb(42, 42, 42);
             width: 30%;
@@ -783,7 +778,6 @@ body {
                 margin-bottom: 20px;
             }
 
-            /*seleccionar todos los input menos el checkbox*/
             form {
                 width: 100%;
                 padding: 40px;
@@ -854,7 +848,7 @@ body {
 }
 
 
-/*media querys para mobile PAGINA registrarse*/
+/*ESTILOS FOOTER CELULAR Y TABLET CHICA*/
 @media (max-width: 1200px) {
     .bodyRegistrarse {
         .headerRegistrarse {
@@ -910,6 +904,9 @@ body {
     }
 
 }
+
+
+
 
 /*ESTILOS ESCRITORIO Detalle Mario*/
 .mainDetalle {

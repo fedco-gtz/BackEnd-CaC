@@ -100,8 +100,6 @@ router.post('/adminMovie/eliminar/:id', async (req, res) => {
         const consulta = 'DELETE FROM catalogo WHERE id = ?';
         const [result] = await pool.query(consulta, [id]);
 
-        console.log(`Número de filas afectadas: ${result.affectedRows}`); 
-
         if (result.affectedRows === 0) {
             console.log('No se encontró ningún producto con ese ID');
             return res.status(404).json({ error: 'Producto no encontrado' });
@@ -147,6 +145,7 @@ router.post('/adminMovie/modificar/:id', async (req, res) => {
         await pool.query(consulta, valores);
 
         res.redirect('/adminMovie');
+
     } catch (error) {
         console.error('Hubo un error al modificar el producto:', error);
         res.status(500).json({ error: 'Hubo un error al modificar el producto' });

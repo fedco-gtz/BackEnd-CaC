@@ -3,30 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Modificar Producto</title>
-    <link rel="stylesheet" href="../../public/css/styles.css">
+    <title>Modificar Producto</title>
+    <style>
+        /*
+        body {
+            font-family: Arial, sans-serif; 
+            background-color: #f0f0f0; 
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            max-width: 800px; 
+            margin: 20px auto; 
+            background-color: #fff; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+
+        .tituloSection {
+            color: #333; 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+
+        form {
+            
+        }
+
+        label {
+            font-weight: bold; 
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%; 
+            padding: 8px; 
+            margin-bottom: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+        }
+
+        button[type="submit"] {
+            background-color: #007bff; 
+            color: #fff; 
+            border: none; 
+            padding: 10px 20px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3; 
+        } */
+    </style>
 </head>
 <body>
-<h1>Modificar Producto</h1>
-<form action="/adminMovie/modificar/{{producto.id}}" method="POST">
-    <div>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="{{producto.nombre}}">
-    </div>
-    <div>
-        <label for="img">Imagen:</label>
-        <input type="text" id="img" name="img" value="{{producto.img}}">
-    </div>
-    <div>
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion">{{producto.descripcion}}</textarea>
-    </div>
-    <div>
-        <label for="aclamado">Aclamado:</label>
-        <input type="checkbox" id="aclamado" name="aclamado" {{#if producto.aclamado}}checked{{/if}}>
-    </div>
-    <button type="submit">Modificar</button>
-</form>
-
+    <main id="main" class="main">
+        <section class="adminSection">
+            <h1 class="tituloSection">Modificar Producto</h1>
+            <form action="/adminMovie/modificar/{{producto.id}}" method="POST">
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" value="{{producto.nombre}}">
+                </div>
+                <div>
+                    <label for="img">Imagen:</label>
+                    <input type="text" id="img" name="img" value="{{producto.img}}">
+                </div>
+                <div>
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion">{{producto.descripcion}}</textarea>
+                </div>
+                <div>
+                    <label for="aclamado">Aclamado:</label>
+                    <input type="checkbox" id="aclamado" name="aclamado" {{#if producto.aclamado}}checked{{/if}}>
+                </div>
+                <button type="submit">Modificar</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>
