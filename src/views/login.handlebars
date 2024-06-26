@@ -7,22 +7,21 @@
     </header>
     <main id="main" class="main">
         <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
-            <!--pongo get ya que en github pages da error el method post-->
-            <form action="" method="get">
+            <form action="/login" method="post">
                 <h2 class="tituloRegistrarse">Iniciar Sesión</h2>
                 <div>
-                    <input type="email" placeholder="Email" id="email" name="email">
+                    <input type="email" placeholder="Email" id="email" name="email" required>
                     <div class="error-text"></div>
                 </div>
                 <div>
-                    <input type="password" placeholder="Contraseña" id="password" name="password">
+                    <input type="password" placeholder="Contraseña" id="password" name="password" required>
                     <div class="error-text"></div>
                 </div>
                 <div>
-                    <input class="boton" type="submit" value="Iniciar Sesión">
+                    <input class="boton" type="submit" href="/profile" value="Iniciar Sesión">
                 </div>
                 <div>
-                    <a id="ayuda" class="ayuda" href="registrarse.html">Registrarse</a>
+                    <a id="ayuda" class="ayuda" href="/register">Registrarse</a>
                 </div>
             </form>
         </section>
@@ -33,4 +32,5 @@
     </script>
     <script src="../js/valida_iniciosesion.js"></script>
 </body>
+
 </html>

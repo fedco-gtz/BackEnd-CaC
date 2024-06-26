@@ -19,8 +19,7 @@ app.set('views', './src/views');
 
 // Rutas //
 app.use('/', movieRoutes);
-app.use('/admin', movieRoutes);
-app.use('/admin', movieRoutes);
+app.use('/adminMovie', movieRoutes);
 
 // Servidor //
 app.listen(port, () => {

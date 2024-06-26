@@ -92,7 +92,7 @@ router.post('/adminMovie', async (req, res) => {
 });
 
 // Ruta para eliminar un producto y sacarlo del admin.handlebars
-router.post('/adminMovie/eliminar/:id', async (req, res) => {
+router.post('/adminMovie/delete/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10); 
     console.log(`Intentando eliminar el producto con ID: ${id}`);
 
@@ -114,7 +114,7 @@ router.post('/adminMovie/eliminar/:id', async (req, res) => {
 });
 
 // Ruta para modificar un producto en modify.handlebars
-router.get('/adminMovie/modificar/:id', async (req, res) => {
+router.get('/adminMovie/modify/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
 
     try {
@@ -134,7 +134,7 @@ router.get('/adminMovie/modificar/:id', async (req, res) => {
 });
 
 // Ruta para mostar el producto modificado en admin.handlebars
-router.post('/adminMovie/modificar/:id', async (req, res) => {
+router.post('/adminMovie/modify/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const { nombre, img, descripcion, aclamado } = req.body;
 
@@ -157,7 +157,6 @@ router.get('/register', async (req, res) => {
     res.render('register', { isRegisterPage: true });
 });
 
-
 // Ruta para crear un usuario en register.handlebars
 router.post('/register', async (req, res) => {
     const { nombre, apellido, email, password, fechaNacimiento, pais, terminos } = req.body;
@@ -177,10 +176,32 @@ router.post('/register', async (req, res) => {
 });
 
 // Ruta para mostrar login.handlebars
-router.get('/login', async (req, res) => {
+router.get('/login', (req, res) => {
     res.render('login', { isRegisterPage: true });
 });
 
+// Ruta para manejar el inicio de sesión
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
 
+    try {
+        const consulta = 'SELECT * FROM usuarios WHERE email = ? AND password = ?';
+        const [resultados] = await pool.query(consulta, [email, password]);
+
+        if (resultados.length > 0) {
+            res.redirect('/profile');
+        } else {
+            res.render('login', { errorMessage: 'Email o contraseña incorrectos.', isRegisterPage: true });
+        }
+    } catch (error) {
+        console.error('Hubo un error al validar el usuario:', error.message);
+        res.status(500).json({ error: 'Hubo un error al validar el usuario' });
+    }
+});
+
+// Ruta para mostrar profile.handlebars
+router.get('/profile', (req, res) => {
+    res.render('profile');
+});
 
 export default router;
