@@ -607,29 +607,32 @@ body {
     border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 }
 
 .formGroup {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
+    width: 100%;
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .formGroup label {
-    width: 120px;
-    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 26px;
+    color: #ffffff;
 }
 
 .formGroup input[type="text"],
 .formGroup textarea,
 .formGroup input[type="checkbox"] {
-    flex: 1;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 22px;
     transition: border-color 0.3s ease;
 }
 
@@ -639,26 +642,44 @@ body {
     border-color: #007bff;
 }
 
+.formGroup input[type="checkbox"] {
+    margin-left: -370px;
+    margin-top: -26px;
+    transform: scale(1.5);
+}
+
+.botonGroup {
+    text-align: center;
+    width: 100%;
+}
+
 .botonEnviar {
+    padding: 8px 12px;
     background-color: #007bff;
-    border: 3px solid rgba(0, 31, 85, 0.2);
-    color: #000000;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
+    color: white;
+    font-size: 20px;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-top: 20px;
 }
 
 .botonEnviar:hover {
-    background-color: #0056b3;
-    color: #fff;
+    opacity: 0.8;
 }
 
 .tituloSection {
     text-align: center;
     font-size: 38px;
     padding: 24px;
+}
+
+.subtituloSection {
+    text-align: center;
+    font-size: 24px;
+    padding: -18px;
+    margin-top: -10px;
 }
 
 .productosTable {

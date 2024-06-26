@@ -14,28 +14,38 @@
             <h1 class="tituloSection">Agregar Producto</h1>
             <form class="formularioProducto" action="/adminMovie" method="POST">
                 <div class="formGroup">
-                    <label for="nombre">Nombre:</label>
+                    <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" name="nombre" required>
                 </div>
                 <div class="formGroup">
-                    <label for="imagen">Imagen:</label>
+                    <label for="imagen">Imagen</label>
                     <input type="text" id="imagen" name="imagen" required>
                 </div>
                 <div class="formGroup">
-                    <label for="descripcion">Descripción:</label>
+                    <label for="descripcion">Descripción</label>
                     <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
                 </div>
                 <div class="formGroup">
-                    <label for="aclamada">Aclamada:</label>
+                    <label for="aclamada">Aclamada por el público</label>
                     <input type="checkbox" id="aclamada" name="aclamada">
+                </div>
+                <div class="formGroup">
+                    <label for="genero">Género</label>
+                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
+                    <input type="radio" id="genero" name="genero" value="Acción"> Comedia
+                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
+                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
+                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
                 </div>
                 <div class="formGroup botonGroup">
                     <button type="submit" class="botonEnviar">Agregar Producto</button>
                 </div>
             </form>
-
             <hr>
             <h1 class="tituloSection">Gestión de Productos</h1>
+            {{#if productos.length}}
+            <h2 class="subtituloSection">Actualmente hay {{productos.length}} películas en el catálogo</h2>
+            {{/if}}
             <table class="productosTable">
                 <thead>
                     <tr>

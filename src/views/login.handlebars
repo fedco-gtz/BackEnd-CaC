@@ -1,0 +1,36 @@
+<body class="bodyRegistrarse">
+    <header class="headerRegistrarse">
+        <a class="anclaLogo" href="../index.html">
+            <i class="fas fa-film" aria-hidden="true"></i>
+            <span>CAC-Movies</span>
+        </a>
+    </header>
+    <main id="main" class="main">
+        <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
+            <!--pongo get ya que en github pages da error el method post-->
+            <form action="" method="get">
+                <h2 class="tituloRegistrarse">Iniciar Sesión</h2>
+                <div>
+                    <input type="email" placeholder="Email" id="email" name="email">
+                    <div class="error-text"></div>
+                </div>
+                <div>
+                    <input type="password" placeholder="Contraseña" id="password" name="password">
+                    <div class="error-text"></div>
+                </div>
+                <div>
+                    <input class="boton" type="submit" value="Iniciar Sesión">
+                </div>
+                <div>
+                    <a id="ayuda" class="ayuda" href="registrarse.html">Registrarse</a>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="../js/valida_iniciosesion.js"></script>
+</body>
+</html>

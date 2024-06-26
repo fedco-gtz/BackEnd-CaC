@@ -8,8 +8,21 @@ const generarIdUnico = async () => {
     let id;
     let existe = true;
     while (existe) {
-        id = Math.floor(10000 + Math.random() * 90000); // Genera un número de 5 dígitos
+        id = Math.floor(10000 + Math.random() * 90000);
         const [rows] = await pool.query('SELECT id FROM catalogo WHERE id = ?', [id]);
+        if (rows.length === 0) {
+            existe = false;
+        }
+    }
+    return id;
+};
+
+const generarIdUnicoUser = async () => {
+    let id;
+    let existe = true;
+    while (existe) {
+        id = Math.floor(10000 + Math.random() * 90000);
+        const [rows] = await pool.query('SELECT id FROM usuarios WHERE id = ?', [id]);
         if (rows.length === 0) {
             existe = false;
         }
@@ -102,7 +115,7 @@ router.post('/adminMovie/eliminar/:id', async (req, res) => {
     }
 });
 
-// Ruta para manejar la modificación de productos
+// Ruta para modificar un producto en modify.handlebars
 router.get('/adminMovie/modificar/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
 
@@ -122,7 +135,7 @@ router.get('/adminMovie/modificar/:id', async (req, res) => {
     }
 });
 
-// Ruta para modificar un producto
+// Ruta para mostar el producto modificado en admin.handlebars
 router.post('/adminMovie/modificar/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
     const { nombre, img, descripcion, aclamado } = req.body;
@@ -140,9 +153,35 @@ router.post('/adminMovie/modificar/:id', async (req, res) => {
     }
 });
 
-// Ruta para obtener y renderizar productos en register.handlebars
+// Ruta para mostrar register.handlebars
 router.get('/register', async (req, res) => {
     res.render('register', { isRegisterPage: true });
 });
+
+
+// Ruta para crear un usuario en register.handlebars
+router.post('/register', async (req, res) => {
+    const { nombre, apellido, email, password, fechaNacimiento, pais, terminos } = req.body;
+    
+    try {
+        const id = await generarIdUnicoUser();
+        const consulta = 'INSERT INTO usuarios (id, nombre, apellido, email, password, fechaNacimiento, pais, terminos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        
+        await pool.query(consulta, [id, nombre, apellido, email, password, fechaNacimiento, pais, terminos]);
+
+        res.render('login', { isRegisterPage: true });
+
+    } catch (error) {
+        console.error('Hubo un error al agregar el usuario:', error.message);
+        res.status(500).json({ error: 'Hubo un error al agregar el usuario' });
+    }
+});
+
+// Ruta para mostrar login.handlebars
+router.get('/login', async (req, res) => {
+    res.render('login', { isRegisterPage: true });
+});
+
+
 
 export default router;

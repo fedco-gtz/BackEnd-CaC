@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    {{#unless isRegisterPage}} <!-- Corregido el nombre de la variable -->
+    {{#unless isRegisterPage}} 
     <header class="header">
         <nav class="navegacion">
             <a class="anclaLogo" href="/">
@@ -23,7 +23,7 @@
             <ul class="listaNav">
                 <li class="listaItem"><a class="linkNav" href="/#tendencias">Tendencias</a></li>
                 <li class="listaItem"><a class="linkNav" href="/register">Registrarse</a></li>
-                <li class="listaItem"><a class="linkNav iniciarSesion" href="">Iniciar Sesión</a></li>
+                <li class="listaItem"><a class="linkNav iniciarSesion" href="/login">Iniciar Sesión</a></li>
             </ul>
         </nav>
     </header>
@@ -31,7 +31,7 @@
 
     {{{body}}}
 
-    {{#unless isRegisterPage}} <!-- Corregido el nombre de la variable -->
+    {{#unless isRegisterPage}} 
     <footer class="footer">
         <nav class="navegacion">
             <ul class="listaNav">
