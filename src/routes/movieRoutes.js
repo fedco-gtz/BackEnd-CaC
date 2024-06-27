@@ -185,11 +185,20 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const consulta = 'SELECT * FROM usuarios WHERE email = ? AND password = ?';
+        const consulta = 'SELECT nombre, apellido, role_id FROM usuarios WHERE email = ? AND password = ?';
         const [resultados] = await pool.query(consulta, [email, password]);
 
         if (resultados.length > 0) {
-            res.redirect('/profile');
+            const usuario = resultados[0];
+            const { nombre, apellido, role_id } = usuario;
+
+            if (role_id === 1) {
+                res.render('profileUser', { nombre, apellido });
+            } else if (role_id === 2) {
+                res.render('profileAdmin', { nombre, apellido });
+            } else {
+                res.render('login', { errorMessage: 'Rol de usuario no reconocido.', isRegisterPage: true });
+            }
         } else {
             res.render('login', { errorMessage: 'Email o contraseña incorrectos.', isRegisterPage: true });
         }
@@ -198,10 +207,14 @@ router.post('/login', async (req, res) => {
         res.status(500).json({ error: 'Hubo un error al validar el usuario' });
     }
 });
+// Ruta para mostrar profileUser.handlebars
+router.get('/profileUser', (req, res) => {
+    res.render('profileUser');
+});
 
-// Ruta para mostrar profile.handlebars
-router.get('/profile', (req, res) => {
-    res.render('profile');
+// Ruta para mostrar profileAdmin.handlebars
+router.get('/profileAdmin', (req, res) => {
+    res.render('profileAdmin');
 });
 
 export default router;

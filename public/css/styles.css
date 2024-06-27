@@ -902,8 +902,92 @@ body {
             }
         }
     }
-
 }
+
+.mainUser {
+    color: white;
+    background: linear-gradient(to right top, #0000008a, #0000008a), url(../images/pages/admin-bg.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: #181419;
+    color: #ffffff;
+    gap: 20px;
+
+    .tituloPrincipal {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .navegacion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .listaNav {
+            list-style: none;
+            display: flex;
+            align-items: center;
+
+            .listaItem {
+                margin-left: 20px;
+
+                .linkNav {
+                    text-decoration: none;
+                    color: #ffffff;
+                    font-weight: 700;
+                    font-size: 1.2rem;
+                }
+
+                .administradorPeliculas {
+                    background-color: #181419;
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    border-radius: 15px;
+                    font-size: 50px;
+
+                    &:hover {
+                        background-color: #9f3647;;
+                        transform: scale(0.95);
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                        border-radius: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
