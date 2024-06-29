@@ -847,7 +847,6 @@ body {
     }
 }
 
-
 /*ESTILOS FOOTER CELULAR Y TABLET CHICA*/
 @media (max-width: 1200px) {
     .bodyRegistrarse {
@@ -963,6 +962,17 @@ body {
             }
         }
     }
+}
+
+/*ESTILOS ESCRITORIOS PARA PAGINA ADMINISTRADOR DE USUARIOS */
+.formUser {
+    padding: 8px 12px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 10px;
+    justify-content: center;
 }
 
 

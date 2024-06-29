@@ -75,7 +75,7 @@ router.get('/adminMovie', async (req, res) => {
 // Ruta para agregar un nuevo producto a la base de datos y mostrarlo en admin.handlebars
 router.post('/adminMovie', async (req, res) => {
     const { nombre, imagen, descripcion, aclamada } = req.body;
-    
+
     try {
         const aclamado = aclamada ? 1 : 0;
         const id = await generarIdUnico();
@@ -93,7 +93,7 @@ router.post('/adminMovie', async (req, res) => {
 
 // Ruta para eliminar un producto y sacarlo del admin.handlebars
 router.post('/adminMovie/delete/:id', async (req, res) => {
-    const id = parseInt(req.params.id, 10); 
+    const id = parseInt(req.params.id, 10);
     console.log(`Intentando eliminar el producto con ID: ${id}`);
 
     try {
@@ -119,13 +119,13 @@ router.get('/adminMovie/modify/:id', async (req, res) => {
 
     try {
         const consulta = 'SELECT id, nombre, img, descripcion, aclamado FROM catalogo WHERE id = ?';
-        const [rows] = await pool.query(consulta, [id]); 
+        const [rows] = await pool.query(consulta, [id]);
 
         if (rows.length > 0) {
-            const producto = rows[0]; 
-            res.render('modify', { producto }); 
+            const producto = rows[0];
+            res.render('modify', { producto });
         } else {
-            res.status(404).send('Producto no encontrado'); 
+            res.status(404).send('Producto no encontrado');
         }
     } catch (error) {
         console.error('Hubo un error al obtener el producto:', error);
@@ -160,11 +160,11 @@ router.get('/register', async (req, res) => {
 // Ruta para crear un usuario en register.handlebars
 router.post('/register', async (req, res) => {
     const { nombre, apellido, email, password, fechaNacimiento, pais, terminos } = req.body;
-    
+
     try {
         const id = await generarIdUnicoUser();
         const consulta = 'INSERT INTO usuarios (id, nombre, apellido, email, password, fechaNacimiento, pais, terminos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-        
+
         await pool.query(consulta, [id, nombre, apellido, email, password, fechaNacimiento, pais, terminos]);
 
         res.render('login', { isRegisterPage: true });
@@ -212,9 +212,61 @@ router.get('/profileUser', (req, res) => {
     res.render('profileUser');
 });
 
+
+
+
 // Ruta para mostrar profileAdmin.handlebars
 router.get('/profileAdmin', (req, res) => {
     res.render('profileAdmin');
 });
+
+// Ruta para obtener y renderizar usuarios en adminUser.handlebars
+router.get('/adminUser', async (req, res) => {
+    try {
+        const consulta = `SELECT u.id, u.nombre, u.apellido, u.email, u.pais, r.nombre AS rol 
+                          FROM usuarios u
+                          LEFT JOIN roles r ON u.role_id = r.id`;
+        const [rows] = await pool.query(consulta);
+
+        const usuarios = rows.map(usuario => ({
+            id: usuario.id,
+            nombre: usuario.nombre,
+            apellido: usuario.apellido,
+            email: usuario.email,
+            pais: usuario.pais,
+            rol: usuario.rol
+        }));
+
+        res.render('adminUser', { usuarios });
+
+    } catch (error) {
+        console.error('Hubo un error al obtener los usuarios:', error);
+        res.status(500).json({ error: 'Hubo un error al obtener los usuarios' });
+    }
+});
+
+// Ruta para modificar el rol de los usuarios en adminUser.handlebars
+router.post('/userAdmin/modifyRole/:id', async (req, res) => {
+    const userId = req.params.id;
+    const newRoleId = req.body.role;
+
+    try {
+        const [userRows] = await pool.query('SELECT * FROM usuarios WHERE id = ?', [userId]);
+        if (userRows.length === 0) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+
+        await pool.query('UPDATE usuarios SET role_id = ? WHERE id = ?', [newRoleId, userId]);
+
+        res.redirect('/adminUser');
+
+    } catch (error) {
+        console.error('Hubo un error al modificar el rol del usuario:', error);
+        res.status(500).json({ error: 'Hubo un error al modificar el rol del usuario' });
+    }
+});
+
+
+
 
 export default router;

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Controlar Usuarios</title>
+</head>
+
+<body>
+    <main id="main" class="main">
+        <section class="adminSection">
+            <h1 class="tituloSection">Listado de Usuarios</h1>
+            <table class="productosTable">
+                <thead>
+                    <tr>
+                        <th>Nombre y Apellido</th>
+                        <th>E-mail</th>
+                        <th>País</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each usuarios}}
+                    <tr>
+                        <td>{{nombre}} {{apellido}}</td>
+                        <td>{{email}}</td>
+                        <td>{{pais}}</td>
+                        <td>{{rol}}</td>
+                        <td>
+                            <form action="/userAdmin/modifyRole/{{id}}" method="POST">
+                                <select name="role" class="formUser">
+                                    <option value="1" {{#if (role_is_user)}}selected{{/if}}>User</option>
+                                    <option value="2" {{#if (role_is_admin)}}selected{{/if}}>Admin</option>
+                                </select>
+                                <br>
+                                <button type="submit" class="botonModificar">Modificar</button>
+                            </form>
+                        </td>
+                        {{else}}
+                    <tr>
+                        <td colspan="5">No se encontraron usuarios.</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
+</html>

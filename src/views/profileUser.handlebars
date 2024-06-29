@@ -7,15 +7,18 @@
 </head>
 
 <body>
-    <header>
-        <h1>Bienvenido a tu perfil USUARIO</h1>
-    </header>
-    <main>
-        <p>Este es tu perfil.</p>
-
-        <p>EN CONSTRUCCIÓN</p>
-
+    <main class="mainUser">
+        <img class="imgTendencia" src="{{this.img}}" alt="{{this.nombre}}" loading="lazy">
+        <h1 class="tituloPrincipal">Que alegria encontrarnos por acá <br> {{ nombre }} {{ apellido }}</h1>
+        <nav class="navegacion">
+            <ul class="listaNav">
+                <li class="listaItem"><a class="linkNav administradorPeliculas" href="">Ir a mi perfil</a></li>
+            </ul>
+        </nav>
     </main>
+
+
+
 </body>
 
 </html>
