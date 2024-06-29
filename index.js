@@ -1,6 +1,7 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import movieRoutes from './src/routes/movieRoutes.js';
+import userRoutes from './src/routes/userRoutes.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.set('views', './src/views');
 // Rutas //
 app.use('/', movieRoutes);
 app.use('/adminMovie', movieRoutes);
+app.use('/', userRoutes);
 
 // Servidor //
 app.listen(port, () => {

@@ -30,11 +30,28 @@
                 </div>
                 <div class="formGroup">
                     <label for="genero">Género</label>
-                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
-                    <input type="radio" id="genero" name="genero" value="Acción"> Comedia
-                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
-                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
-                    <input type="radio" id="genero" name="genero" value="Acción"> Acción
+                    <div class="radioGroup">
+                        <div><input type="radio" id="genero" name="genero" value="1"><label for="Acción">Acción</label>
+                        </div>
+                        <div><input type="radio" id="genero" name="genero" value="2"><label
+                                for="Comedia">Comedia</label></div>
+                        <div><input type="radio" id="genero" name="genero" value="3"><label for="Drama">Drama</label>
+                        </div>
+                        <div><input type="radio" id="genero" name="genero" value="4"><label
+                                for="Ciencia Ficción">Ciencia Ficción</label></div>
+                        <div><input type="radio" id="genero" name="genero" value="5"><label for="Crimen">Crimen</label>
+                        </div>
+                        <div><input type="radio" id="genero" name="genero" value="6"><label
+                                for="Aventura">Aventura</label></div>
+                        <div><input type="radio" id="genero" name="genero" value="7"><label
+                                for="Fantasía">Fantasía</label></div>
+                        <div><input type="radio" id="genero" name="genero" value="8"><label
+                                for="Suspenso">Suspenso</label></div>
+                        <div><input type="radio" id="genero" name="genero" value="9"><label
+                                for="Historia">Historia</label></div>
+                        <div><input type="radio" id="genero" name="genero" value="10"><label
+                                for="Western">Western</label></div>
+                    </div>
                 </div>
                 <div class="formGroup botonGroup">
                     <button type="submit" class="botonEnviar">Agregar Producto</button>
@@ -51,6 +68,7 @@
                         <th>Nombre</th>
                         <th>Imagen</th>
                         <th>Descripción</th>
+                        <th>Género</th>
                         <th>Aclamada</th>
                         <th>Acciones</th>
                     </tr>
@@ -61,6 +79,7 @@
                         <td>{{nombre}}</td>
                         <td><img src="{{img}}" alt="{{nombre}}"></td>
                         <td>{{descripcion}}</td>
+                        <td>{{genero}}</td>
                         <td>{{#if aclamado}}Sí{{else}}No{{/if}}</td>
                         <td>
                             <a href="/adminMovie/modify/{{id}}" class="botonModificar">Modificar</a>
@@ -75,4 +94,5 @@
         </section>
     </main>
 </body>
+
 </html>

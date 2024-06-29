@@ -7,15 +7,45 @@
 </head>
 
 <body>
-    <main class="mainUser">
+    <main class="mainUserProfile">
         <img class="imgTendencia" src="{{this.img}}" alt="{{this.nombre}}" loading="lazy">
         <h1 class="tituloPrincipal">Que alegria encontrarnos por acá <br> {{ nombre }} {{ apellido }}</h1>
         <nav class="navegacion">
             <ul class="listaNav">
-                <li class="listaItem"><a class="linkNav administradorPeliculas" href="">Ir a mi perfil</a></li>
+                <li class="listaItem"><a class="linkNav administradorPeliculas" href="/profile">Ir a mi perfil</a></li>
             </ul>
         </nav>
     </main>
+    <section data-aos="fade-up" data-aos-offset="300" data-aos-delay="50" data-aos-duration="1000"
+        class="buscadorPrincipal">
+        <h2 class="tituloSection">¿Qué deseas ver?</h2>
+        <form class="buscadorPeliculas">
+            <input class="inputBuscador" type="text" placeholder="Buscar..." id="buscar" name="buscar">
+            <input class="botonBuscador" type="submit" value="Buscar">
+        </form>
+        <hr>
+        <h3 class="tituloSection">Lo recomendado para vos</h3>
+        <div class="peliculas">
+            <div class="peliculas">
+                {{#each productos}}
+                {{#unless this.aclamado}}
+                <a href="/login">
+                    <div class="pelicula">
+                        <div>
+                            <img class="imgTendencia" src="{{this.img}}" alt="{{this.nombre}}" loading="lazy">
+                            <div class="tituloPelicula">
+                                <h4>{{this.nombre}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {{/unless}}
+                {{/each}}
+            </div>
+            <button class="boton anterior">Anterior</button>
+            <button class="boton siguiente">Siguiente</button>
+        </div>
+    </section>
 
 
 
