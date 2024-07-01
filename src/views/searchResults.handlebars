@@ -1,0 +1,17 @@
+
+{{#if productos.length}}
+    <h2>Resultados de búsqueda</h2>
+    <ul>
+        {{#each productos}}
+            <li>
+                <h3>{{nombre}}</h3>
+                <img src="{{img}}" alt="{{nombre}}">
+                <p>{{descripcion}}</p>
+                <p>Género: {{genero}}</p>
+                <p>{{#if aclamado}}Película aclamada{{else}}Película no aclamada{{/if}}</p>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>No se encontraron resultados.</p>
+{{/if}}

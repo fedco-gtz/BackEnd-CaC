@@ -146,4 +146,42 @@ router.post('/adminMovie/modify/:id', async (req, res) => {
     }
 });
 
+
+/*
+router.get('/results', async (req, res) => {
+    try {
+        res.render('searchResults');
+    } catch (error) {
+        console.error('Hubo un error al cargar la página de resultados:', error);
+        res.status(500).json({ error: 'Hubo un error al cargar la página de resultados' });
+    }
+});
+
+router.post('/results', async (req, res) => {
+    const { nombre } = req.body;
+
+    try {
+        const consulta = `SELECT id, nombre, img, descripcion, aclamado, genero_nombre FROM catalogo WHERE nombre LIKE ?`;
+        const [rows] = await pool.query(consulta, [`%${nombre}%`]);
+
+        const productos = rows.map(producto => ({
+            id: producto.id,
+            nombre: producto.nombre,
+            img: `../images/pages/catalogue/${producto.img}`,
+            descripcion: producto.descripcion,
+            genero: producto.genero_nombre,
+            aclamado: producto.aclamado === 1 ? true : false,
+        }));
+
+        res.render('searchResults', { productos });
+
+    } catch (error) {
+        console.error('Hubo un error al buscar películas:', error);
+        res.status(500).json({ error: 'Hubo un error al buscar películas' });
+    }
+});
+*/
+
+
+
 export default router;

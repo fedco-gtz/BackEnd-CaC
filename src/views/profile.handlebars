@@ -1,1 +1,88 @@
-<h1>Acá podras modificar tus datos y preferencias</h1>
+<body>
+    <div class="container">
+        <h1 class="tituloSection">Editar Perfil</h1>
+        <form action="/profile/{{id}}" method="post">
+            <table class="tableProfile">
+                <tr>
+                    <th>Cuenta</th>
+                    <td><input class="inputProfile" id="email" type="email" name="email" value="{{ email }}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Contraseña</th>
+                    <td>
+                        <input id="password" class="inputProfile" type="password" name="password" value="{{ password }}"
+                            readonly>
+                        <a onclick="enableEdit('password')"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td>
+                        <input id="nombre" class="inputProfile" type="text" name="nombre" value="{{ nombre }}" readonly>
+                        <a onclick="enableEdit('nombre')"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Apellido</th>
+                    <td>
+                        <input id="apellido" class="inputProfile" type="text" name="apellido" value="{{ apellido }}"
+                            readonly>
+                        <a onclick="enableEdit('apellido')"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>País</th>
+                    <td>
+                        <input id="pais" class="inputProfile" type="text" name="pais" value="{{ pais }}" readonly>
+                        <a onclick="enableEdit('pais')"><i class="fa fa-pencil"></i></a>
+                    </td>
+                </tr>
+
+                <th>¿Qué generos te interesan?</th>
+                <td>
+                    <div id="generos">
+                        {{#each generos}}
+                        <label>
+                            <input type="checkbox" name="generos" value="{{this.id}}" onclick="limitSelection(this)">
+                            {{this.nombre}}
+                        </label><br>
+                        {{/each}}
+                    </div>
+                </td>
+            </table>
+            <button class="button" type="submit">Guardar Cambios</button>
+        </form>
+
+        <button class="button" type="submit"><a href="/profileUser/{{id}}">Volver</a></button>
+
+        <form action="/profile/{{id}}/delete" method="POST"
+            onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.');">
+            <button class="button" type="submit">Darse de baja</button>
+        </form>
+    </div>
+
+    <script>
+        function enableEdit(fieldId) {
+            document.getElementById(fieldId).removeAttribute('readonly');
+            document.getElementById(fieldId).focus();
+        }
+
+        function limitSelection(checkbox) {
+            const max = 5;
+            const checkboxes = document.querySelectorAll('input[name="generos"]');
+            let selectedCount = 0;
+
+            checkboxes.forEach(function (box) {
+                if (box.checked) {
+                    selectedCount++;
+                }
+            });
+
+            if (selectedCount > max) {
+                alert('Solo puedes seleccionar hasta ' + max + ' géneros.');
+                checkbox.checked = false;
+            }
+        }
+    </script>
+</body>

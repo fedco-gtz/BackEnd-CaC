@@ -1074,6 +1074,74 @@ body {
     justify-content: center;
 }
 
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.tableProfile {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px; 
+}
+
+.tableProfile th, .tableProfile td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #333333;
+    font-size: 22px;
+}
+
+.tableProfile th {
+    background-color: #333333;
+}
+
+.tableProfile td a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 10px; 
+}
+
+.tableProfile td a:hover {
+    color: #9f3647;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #ccc;
+}
+
+.tableProfile td .inputProfile {
+    padding: 10px;
+    text-align: left;
+    border: none;
+    font-size: 22px;
+    background-color: #181419;
+    color: #fff;
+    width: auto;
+}
+
+
+
+
+
+
 
 
 
