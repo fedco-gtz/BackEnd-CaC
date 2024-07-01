@@ -1137,36 +1137,11 @@ body {
     width: auto;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*ESTILOS ESCRITORIO Detalle Mario*/
+/*ESTILOS ESCRITORIO DETALLE PELICULA*/
 .mainDetalle {
 
     .detalle {
         padding-top: 50px;
-        background: linear-gradient(to right top, #6d6969a7, #6d6969a7), url("../assets/img/mario-bg.jpg");
         background-size: cover;
         background-position: center;
         height: 70vh;

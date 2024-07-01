@@ -146,42 +146,58 @@ router.post('/adminMovie/modify/:id', async (req, res) => {
     }
 });
 
-
-/*
-router.get('/results', async (req, res) => {
+// Ruta para mostar el detalle de la película en detail.handlebars
+router.get('/detail/:id', async (req, res) => {
+    const id = parseInt(req.params.id, 10);
     try {
-        res.render('searchResults');
+        const consulta = `
+            SELECT 
+                c.id, 
+                c.nombre, 
+                c.img, 
+                c.descripcion, 
+                c.escritor, 
+                c.director, 
+                c.duracion, 
+                c.idioma, 
+                c.trailer, 
+                c.estreno,
+                c.recaudacion, 
+                c.presupuesto, 
+                c.banner, 
+                gp.nombre AS nombre_genero 
+            FROM catalogo c
+            LEFT JOIN genero_peliculas gp ON c.genero_id = gp.id
+            WHERE c.id = ?
+        `;
+        const [rows] = await pool.query(consulta, [id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Producto no encontrado' });
+        }
+
+        const producto = {
+            id: rows[0].id,
+            nombre: rows[0].nombre,
+            img: `../images/pages/catalogue/${rows[0].img}`,
+            banner: `../images/pages/banners/${rows[0].banner}`,
+            descripcion: rows[0].descripcion,
+            escritor: rows[0].escritor,
+            director: rows[0].director,
+            duracion: rows[0].duracion,
+            idioma: rows[0].idioma,
+            trailer: rows[0].trailer,
+            estreno: rows[0].estreno,
+            nombre_genero: rows[0].nombre_genero,
+            recaudacion: rows[0].recaudacion,
+            presupuesto: rows[0].presupuesto
+        };
+
+        res.render('detail', { producto });
     } catch (error) {
-        console.error('Hubo un error al cargar la página de resultados:', error);
-        res.status(500).json({ error: 'Hubo un error al cargar la página de resultados' });
+        console.error('Hubo un error al obtener los productos:', error);
+        res.status(500).json({ error: 'Hubo un error al obtener los productos' });
     }
 });
-
-router.post('/results', async (req, res) => {
-    const { nombre } = req.body;
-
-    try {
-        const consulta = `SELECT id, nombre, img, descripcion, aclamado, genero_nombre FROM catalogo WHERE nombre LIKE ?`;
-        const [rows] = await pool.query(consulta, [`%${nombre}%`]);
-
-        const productos = rows.map(producto => ({
-            id: producto.id,
-            nombre: producto.nombre,
-            img: `../images/pages/catalogue/${producto.img}`,
-            descripcion: producto.descripcion,
-            genero: producto.genero_nombre,
-            aclamado: producto.aclamado === 1 ? true : false,
-        }));
-
-        res.render('searchResults', { productos });
-
-    } catch (error) {
-        console.error('Hubo un error al buscar películas:', error);
-        res.status(500).json({ error: 'Hubo un error al buscar películas' });
-    }
-});
-*/
-
-
 
 export default router;
