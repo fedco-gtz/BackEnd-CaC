@@ -10,7 +10,7 @@
 <body>
     <main id="main" class="main">
         <section class="adminSection">
-            <h1 class="tituloSection">Agregar Producto</h1>
+            <h1 class="tituloSection">Agregar Película</h1>
             <form class="formularioProducto" action="/adminMovie" method="POST">
                 <div class="formGroup">
                     <label for="nombre">Nombre</label>
@@ -19,6 +19,10 @@
                 <div class="formGroup">
                     <label for="imagen">Imagen</label>
                     <input type="text" id="imagen" name="imagen" required>
+                </div>
+                <div class="formGroup">
+                    <label for="banner">Banner</label>
+                    <input type="text" id="banrer" name="banner" required>
                 </div>
                 <div class="formGroup">
                     <label for="descripcion">Descripción</label>
@@ -52,13 +56,46 @@
                         <div><input type="radio" id="genero" name="genero" value="10"><label
                                 for="Western">Western</label></div>
                     </div>
+                    <div class="formGroup">
+                        <label for="director">Director</label>
+                        <input type="text" id="director" name="director" required>
+                    </div>
+                    <div class="formGroup">
+                        <label for="escritor">Escritor</label>
+                        <input type="text" id="escritor" name="escritor" required>
+                    </div>
+                </div>
+                <div class="formGroup">
+                    <label for="idioma">Idioma Original</label>
+                    <input type="text" id="idioma" name="idioma" required>
+                </div>
+                <div class="formGroup">
+                    <label for="duracion">Duración (en minutos)</label>
+                    <input type="text" id="duracion" name="duracion" required>
+                </div>
+                <div class="formGroup">
+                    <label for="estreno">Año de estreno</label>
+                    <input type="text" id="estreno" name="estreno" required>
+                </div>
+                <div class="formGroup">
+                    <label for="presupuesto">Costo de producción</label>
+                    <input type="text" id="presupuesto" name="presupuesto" required>
+                </div>
+                <div class="formGroup">
+                    <label for="recaudacion">Recaudación</label>
+                    <input type="text" id="recaudacion" name="recaudacion" required>
+                </div>
+                <div class="formGroup">
+                    <label for="trailer">Trailer (link)</label>
+                    <input type="text" id="trailer" name="trailer" required>
+                </div>
                 </div>
                 <div class="formGroup botonGroup">
-                    <button type="submit" class="botonEnviar">Agregar Producto</button>
+                    <button type="submit" class="botonEnviar">Agregar</button>
                 </div>
             </form>
             <hr>
-            <h1 class="tituloSection">Gestión de Productos</h1>
+            <h1 class="tituloSection">Gestión de Película</h1>
             {{#if productos.length}}
             <h2 class="subtituloSection">Actualmente hay {{productos.length}} películas en el catálogo</h2>
             {{/if}}

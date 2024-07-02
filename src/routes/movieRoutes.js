@@ -65,17 +65,16 @@ router.get('/adminMovie', async (req, res) => {
 });
 
 router.post('/adminMovie', async (req, res) => {
-    const { nombre, imagen, descripcion, aclamada, genero } = req.body;
+    const { nombre, imagen, descripcion, aclamada, genero, director, escritor, duracion, idioma, trailer, estreno, recaudacion, presupuesto, banner } = req.body;
 
     try {
         const aclamado = aclamada ? 1 : 0;
         const id = await generarIdUnico();
 
-        // Evaluar genero por defecto a 11 si no se proporciona
         const generoInsertar = genero ?? 11;
 
-        const consulta = 'INSERT INTO catalogo (id, nombre, img, descripcion, aclamado, genero_id) VALUES (?, ?, ?, ?, ?, ?)';
-        await pool.query(consulta, [id, nombre, imagen, descripcion, aclamado, generoInsertar]);
+        const consulta = 'INSERT INTO catalogo (id, nombre, img, descripcion, aclamado, genero_id, director, escritor, duracion, idioma, trailer, estreno, recaudacion, presupuesto, banner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        await pool.query(consulta, [id, nombre, imagen, descripcion, aclamado, generoInsertar, director, escritor, duracion, idioma, trailer, estreno, recaudacion, presupuesto, banner]);
 
         res.redirect('/adminMovie');
 
@@ -112,7 +111,7 @@ router.get('/adminMovie/modify/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
 
     try {
-        const consulta = 'SELECT id, nombre, img, descripcion, aclamado FROM catalogo WHERE id = ?';
+        const consulta = 'SELECT id, nombre, img, descripcion, aclamado, banner, director, escritor, duracion, idioma, estreno, recaudacion, presupuesto, trailer FROM catalogo WHERE id = ?';
         const [rows] = await pool.query(consulta, [id]);
 
         if (rows.length > 0) {
@@ -128,13 +127,13 @@ router.get('/adminMovie/modify/:id', async (req, res) => {
 });
 
 // Ruta para mostar el producto modificado en admin.handlebars
-router.post('/adminMovie/modify/:id', async (req, res) => {
+router.post('/adminMovie/modificar/:id', async (req, res) => {
     const id = parseInt(req.params.id, 10);
-    const { nombre, img, descripcion, aclamado } = req.body;
+    const { nombre, img, descripcion, aclamado, banner, director, escritor, duracion, idioma, estreno, recaudacion, presupuesto, trailer } = req.body;
 
     try {
-        const consulta = 'UPDATE catalogo SET nombre = ?, img = ?, descripcion = ?, aclamado = ? WHERE id = ?';
-        const valores = [nombre, img, descripcion, aclamado ? 1 : 0, id];
+        const consulta = 'UPDATE catalogo SET nombre = ?, img = ?, descripcion = ?, aclamado = ?, banner = ?, director = ?, escritor = ?, duracion = ?, idioma = ?, estreno = ?, recaudacion = ?, presupuesto = ?, trailer = ?  WHERE id = ?';
+        const valores = [nombre, img, descripcion, aclamado ? 1 : 0, banner, director, escritor, duracion, idioma, estreno, recaudacion, presupuesto, trailer, id ];
 
         await pool.query(consulta, valores);
 
