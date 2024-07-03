@@ -14,19 +14,25 @@
 
 <body>
     {{#unless isRegisterPage}} 
-    <header class="header">
-        <nav class="navegacion">
-            <a class="anclaLogo" href="/">
-                <i class="fas fa-film" aria-hidden="true"></i>
-                <span>CAC-Movies</span>
-            </a>
-            <ul class="listaNav">
-                <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
+<header class="header">
+    <nav class="navegacion">
+        <a class="anclaLogo" href="/">
+            <i class="fas fa-film" aria-hidden="true"></i>
+            <span>CAC-Movies</span>
+        </a>
+        <ul class="listaNav">
+            <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
+            {{#if sessionStarted}}
+                <li class="listaItem"><a class="linkNav" href="/profile">Mi Perfil</a></li>
+                <li class="listaItem"><a class="linkNav cerrarSesion" href="/logout">Cerrar Sesión</a></li>
+            {{else}}
                 <li class="listaItem"><a class="linkNav" href="/register">Registrarse</a></li>
                 <li class="listaItem"><a class="linkNav iniciarSesion" href="/login">Iniciar Sesión</a></li>
-            </ul>
-        </nav>
-    </header>
+            {{/if}}
+        </ul>
+    </nav>
+</header>
+
     {{/unless}}
 
     {{{body}}}
@@ -50,6 +56,31 @@
     <script>
         AOS.init();
     </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const header = document.querySelector('.header');
+    const listaNav = document.querySelector('.listaNav');
+
+    if (localStorage.getItem('email') && localStorage.getItem('password')) {
+        header.classList.add('sesionIniciada');
+        listaNav.innerHTML = `
+            <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
+            <li class="listaItem"><a class="linkNav" href="/profile/{{id}}">Mi Perfil</a></li>
+            <li class="listaItem"><a class="linkNav cerrarSesion" href="/">Cerrar Sesión</a></li>
+        `;
+        
+        const cerrarSesionLink = listaNav.querySelector('.cerrarSesion');
+        cerrarSesionLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+            
+            window.location.href = '/';
+        });
+    }
+});
+</script>
 </body>
 
 </html>

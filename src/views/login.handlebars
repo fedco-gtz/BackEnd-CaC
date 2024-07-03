@@ -1,24 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        .error-text {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
 <body class="bodyRegistrarse">
     <header class="headerRegistrarse">
-        <a class="anclaLogo" href="../index.html">
+        <a class="anclaLogo" href="/">
             <i class="fas fa-film" aria-hidden="true"></i>
             <span>CAC-Movies</span>
         </a>
     </header>
     <main id="main" class="main">
         <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
-            <form action="/login" method="post">
+            <form id="loginForm" action="/login" method="post" onsubmit="return validateForm()">
                 <h2 class="tituloRegistrarse">Iniciar Sesión</h2>
                 <div>
-                    <input type="email" placeholder="Email" id="email" name="email" required>
-                    <div class="error-text"></div>
+                    <input type="email" placeholder="Email" id="email" name="email">
+                    <div id="emailError" class="error-text"></div>
                 </div>
                 <div>
-                    <input type="password" placeholder="Contraseña" id="password" name="password" required>
-                    <div class="error-text"></div>
+                    <input type="password" placeholder="Contraseña" id="password" name="password">
+                    <div id="passwordError" class="error-text"></div>
                 </div>
                 <div>
-                    <input class="boton" type="submit" href="/profile" value="Iniciar Sesión">
+                    <input class="boton" type="submit" value="Iniciar Sesión">
                 </div>
                 <div>
                     <a id="ayuda" class="ayuda" href="/register">Registrarse</a>
@@ -30,7 +46,7 @@
     <script>
         AOS.init();
     </script>
-    <script src="../js/valida_iniciosesion.js"></script>
+    <script src="../js/sessionValidation.js"></script>
 </body>
 
 </html>
