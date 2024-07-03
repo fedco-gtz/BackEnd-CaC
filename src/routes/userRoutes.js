@@ -212,14 +212,12 @@ router.post('/profile/:id', async (req, res) => {
     const { nombre, apellido, email, password, fechaNacimiento, pais, generos } = req.body;
 
     try {
-        // Construir los valores de los géneros preferidos
         const generoPreferido1 = generos && generos[0] ? parseInt(generos[0], 10) : null;
         const generoPreferido2 = generos && generos[1] ? parseInt(generos[1], 10) : null;
         const generoPreferido3 = generos && generos[2] ? parseInt(generos[2], 10) : null;
         const generoPreferido4 = generos && generos[3] ? parseInt(generos[3], 10) : null;
         const generoPreferido5 = generos && generos[4] ? parseInt(generos[4], 10) : null;
 
-        // Actualizar los datos del usuario
         const consulta = `
             UPDATE usuarios 
             SET nombre = ?, apellido = ?, email = ?, password = ?, fechaNacimiento = ?, pais = ?,

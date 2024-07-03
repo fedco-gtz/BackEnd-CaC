@@ -13,7 +13,7 @@
                 <div class="peliculas">
                     {{#each productos}}
                     {{#unless this.aclamado}}
-                    <a href="/login">
+                    <a href="/detail/{{id}}">
                         <div class="pelicula">
                             <div>
                                 <img class="imgTendencia" src="{{this.img}}" alt="{{this.nombre}}" loading="lazy">

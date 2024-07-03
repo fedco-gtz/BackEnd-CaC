@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://kit.fontawesome.com/f7fb471b65.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -21,11 +21,11 @@
             <span>CAC-Movies</span>
         </a>
         <ul class="listaNav">
-            <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
             {{#if sessionStarted}}
-                <li class="listaItem"><a class="linkNav" href="/profile">Mi Perfil</a></li>
+                <li class="listaItem"><a class="linkNav" href="/">Mi Perfil</a></li>
                 <li class="listaItem"><a class="linkNav cerrarSesion" href="/logout">Cerrar Sesión</a></li>
             {{else}}
+                <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
                 <li class="listaItem"><a class="linkNav" href="/register">Registrarse</a></li>
                 <li class="listaItem"><a class="linkNav iniciarSesion" href="/login">Iniciar Sesión</a></li>
             {{/if}}
@@ -56,31 +56,6 @@
     <script>
         AOS.init();
     </script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const header = document.querySelector('.header');
-    const listaNav = document.querySelector('.listaNav');
-
-    if (localStorage.getItem('email') && localStorage.getItem('password')) {
-        header.classList.add('sesionIniciada');
-        listaNav.innerHTML = `
-            <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
-            <li class="listaItem"><a class="linkNav" href="/profile/{{id}}">Mi Perfil</a></li>
-            <li class="listaItem"><a class="linkNav cerrarSesion" href="/">Cerrar Sesión</a></li>
-        `;
-        
-        const cerrarSesionLink = listaNav.querySelector('.cerrarSesion');
-        cerrarSesionLink.addEventListener('click', function(event) {
-            event.preventDefault();
-            
-            localStorage.removeItem('email');
-            localStorage.removeItem('password');
-            
-            window.location.href = '/';
-        });
-    }
-});
-</script>
+    <script src="../js/login.js"></script>
 </body>
-
 </html>
