@@ -51,14 +51,14 @@
                     </div>
                 </td>
             </table>
-            <button class="button" type="submit">Guardar Cambios</button>
+            <button class="button saveChanges" type="submit">Guardar Cambios</button>
         </form>
 
-        <button class="button" type="submit"><a href="/profileUser/{{id}}">Volver</a></button>
+        <button class="button return" type="submit"><a href="/profileUser/{{id}}">Volver</a></button>
 
         <form action="/profile/{{id}}/delete" method="POST"
             onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu perfil? Esta acción no se puede deshacer.');">
-            <button class="button" type="submit">Darse de baja</button>
+            <button class="button deleteProfile" type="submit">Darse de baja</button>
         </form>
     </div>
 
@@ -85,5 +85,41 @@
             }
         }
     </script>
-    
+    <style>
+        .saveChanges {
+            background-color: #4CAF50;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .saveChanges:hover {
+            opacity: 0.8;
+            background-color: #4CAF50;
+        }
+
+        .deleteProfile {
+            background-color: #f44336;
+            color: #ffffff;
+        }
+
+        .deleteProfile:hover {
+            opacity: 0.8;
+            background-color: #f44336;
+        }
+
+        .return {
+            background-color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .return a{
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .return:hover {
+            opacity: 0.8;
+            background-color: #007bff;
+        }
+    </style>
 </body>

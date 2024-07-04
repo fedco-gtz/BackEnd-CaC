@@ -22,10 +22,8 @@
             </ul>
         </nav>
     </main>
-
     <section data-aos="fade-up" data-aos-offset="300" data-aos-delay="50" data-aos-duration="1000"
         class="buscadorPrincipal">
-
         <section class="main">
             <section data-aos="fade-up" data-aos-offset="300" data-aos-delay="50" data-aos-duration="1000"
                 class="buscadorPrincipal">
@@ -57,15 +55,18 @@
                                     </a>
                                 </div>
                             </div>
+                            <br>
+                            <button class="button return" type="button" onclick="goBack()">Volver</button>
                             {{/each}}
                         </ul>
                     </section>
                     {{else}}
-                    <p>No se encontraron películas que coincidan con tu búsqueda.</p>
+                    <!-- <p>No se encontraron películas que coincidan con tu búsqueda.</p> -->
                     {{/if}}
                 </section>
+                <br><br>
             </section>
-            <br><br><br><br><br>
+            <br><br><br><br><br><br><br>
             <hr>
             <section class="main" id="sectionLogin">
                 <section id="tendencias" data-aos="fade-up" data-aos-offset="400" data-aos-delay="100"
@@ -121,43 +122,61 @@
                     <br><br>
                 </section>
             </section>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var sectionLogin = document.getElementById("sectionLogin");
-                    var sectionProfileUser = document.getElementById("sectionProfileUser");
-
-                    function toggleSections() {
-                        if (window.location.pathname === '/login') {
-                            sectionLogin.classList.remove('hidden');
-                            sectionProfileUser.classList.add('hidden');
-                        } else {
-                            sectionLogin.classList.add('hidden');
-                            sectionProfileUser.classList.remove('hidden');
-                        }
-                    }
-
-                    toggleSections();
-                    window.addEventListener('popstate', toggleSections);
-                });
-            </script>
-
-            <script>
-                $(document).ready(function () {
-                    $('.buscadorPeliculas').submit(function (event) {
-                        event.preventDefault(); // Evita que el formulario se envíe automáticamente
-
-                        var nombre = $('#buscar').val(); // Obtiene el valor del campo de búsqueda
-
-                        // Realiza la solicitud al servidor
-                        $.get('/buscar-pelicula', { nombre: nombre }, function (data) {
-                            // Maneja la respuesta del servidor
-                            // Aquí puedes actualizar el DOM con los resultados obtenidos
-                            $('.resultadosBusqueda').html(data); // Suponiendo que 'resultadosBusqueda' es el contenedor donde mostrarás los resultados
-                        });
-                    });
-                });
-            </script>
+        </section>
+    </section>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var sectionLogin = document.getElementById("sectionLogin");
+        var sectionProfileUser = document.getElementById("sectionProfileUser");
+
+        function toggleSections() {
+            if (window.location.pathname === '/login') {
+                sectionLogin.classList.remove('hidden');
+                sectionProfileUser.classList.add('hidden');
+            } else {
+                sectionLogin.classList.add('hidden');
+                sectionProfileUser.classList.remove('hidden');
+            }
+        }
+
+        toggleSections();
+        window.addEventListener('popstate', toggleSections);
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.buscadorPeliculas').submit(function (event) {
+            event.preventDefault();
+
+            var nombre = $('#buscar').val();
+
+            $.get('/buscar-pelicula', { nombre: nombre }, function (data) {
+                $('.resultadosBusqueda').html(data);
+            });
+        });
+    });
+</script>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<style>
+    .return {
+        background-color: #007bff;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+
+    .return:hover {
+        opacity: 0.8;
+        background-color: #007bff;
+    }
+</style>
 
 </html>
