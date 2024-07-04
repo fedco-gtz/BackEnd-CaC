@@ -50,26 +50,49 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const consulta = 'SELECT id, nombre, apellido, role_id FROM usuarios WHERE email = ? AND password = ?';
-        const [resultados] = await pool.query(consulta, [email, password]);
+        const consultaUsuario = 'SELECT id, nombre, apellido, genero_preferido_1, genero_preferido_2, genero_preferido_3, genero_preferido_4, genero_preferido_5, role_id FROM usuarios WHERE email = ? AND password = ?';
+        const [resultadosUsuario] = await pool.query(consultaUsuario, [email, password]);
 
-        if (resultados.length > 0) {
-            const usuario = resultados[0];
-            const { id, nombre, apellido, role_id } = usuario;
+        if (resultadosUsuario.length > 0) {
+            const usuario = resultadosUsuario[0];
+            const { id, nombre, apellido, genero_preferido_1, genero_preferido_2, genero_preferido_3, genero_preferido_4, genero_preferido_5, role_id } = usuario;
 
             if (role_id === 1) {
-                res.render('profileUser', { id, nombre, apellido });
+                const generosPreferidos = [genero_preferido_1, genero_preferido_2, genero_preferido_3, genero_preferido_4, genero_preferido_5].filter(Boolean);
+                const placeholders = generosPreferidos.map(() => '?').join(', ');
+                const consultaGeneros = `SELECT id, nombre FROM genero_peliculas WHERE id IN (${placeholders})`;
+                const [resultadosGeneros] = await pool.query(consultaGeneros, generosPreferidos);
+
+                const nombresGenerosPreferidos = generosPreferidos.map(id => {
+                    const genero = resultadosGeneros.find(g => g.id === id);
+                    return genero ? genero.nombre : null;
+                }).filter(Boolean).join(' | ');
+
+                if (!nombresGenerosPreferidos) {
+                    throw new Error('No se encontraron nombres para los géneros preferidos.');
+                }
+
+                const consultaCatalogo = `SELECT id, img, nombre FROM catalogo WHERE genero_id IN (${placeholders})`;
+                const [resultadosCatalogo] = await pool.query(consultaCatalogo, generosPreferidos);
+
+                res.render('profileUser', {
+                    id,
+                    nombre,
+                    apellido,
+                    nombresGenerosPreferidos,
+                    peliculas: resultadosCatalogo
+                });
             } else if (role_id === 2) {
                 res.render('profileAdmin', { nombre, apellido });
             } else {
                 res.render('login', { errorMessage: 'Rol de usuario no reconocido.', isRegisterPage: true });
             }
         } else {
-            res.render('login', { errorMessage: 'Email o contraseña incorrectos.', isRegisterPage: true });
+            res.render('login', { error: 'E-mail o contraseña incorrecto', isRegisterPage: true });
         }
     } catch (error) {
         console.error('Hubo un error al validar el usuario:', error.message);
-        res.status(500).json({ error: 'Ya existe una cuenta asociada con ese email' });
+        res.status(500).json({ error: 'Hubo un error al validar el usuario' });
     }
 });
 
@@ -238,13 +261,6 @@ router.post('/profile/:id', async (req, res) => {
     }
 });
 
-
-
-
-
-
-
-
 // Ruta para eliminar en profile.handlebars
 router.post('/profile/:id/delete', async (req, res) => {
     const id = parseInt(req.params.id, 10);
@@ -260,5 +276,72 @@ router.post('/profile/:id/delete', async (req, res) => {
         res.status(500).json({ error: 'Hubo un error al eliminar el perfil del usuario' });
     }
 });
+
+
+// Ruta para mostrar profileUser.handlebars
+router.get('/profile/:id', async (req, res) => {
+    const id = parseInt(req.params.id, 10);
+
+    try {
+        const consulta = 'SELECT id, nombre, apellido, genero_preferido_1, genero_preferido_2, genero_preferido_3, genero_preferido_4, genero_preferido_5 FROM usuarios WHERE id = ?';
+        const [rows] = await pool.query(consulta, [id]);
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+
+        const generos = [];
+        const peliculasPorGenero = [];
+
+        for (let i = 1; i <= 5; i++) {
+            const generoId = rows[0][`genero_preferido_${i}`];
+            if (generoId) {
+                const consultaGenero = 'SELECT nombre FROM genero_peliculas WHERE id = ?';
+                const [generoRows] = await pool.query(consultaGenero, [generoId]);
+                if (generoRows.length > 0) {
+                    generos.push(generoRows[0].nombre);
+
+                    const consultaPeliculas = 'SELECT id, nombre, img FROM catalogo WHERE genero_id = ?';
+                    const [peliculasRows] = await pool.query(consultaPeliculas, [generoId]);
+                    
+                    peliculasPorGenero.push({
+                        genero: generoRows[0].nombre,
+                        peliculas: peliculasRows
+                    });
+                }
+            }
+        }
+
+        const generosSeparados = generos.join(' | ');
+
+        res.render('login', {
+            id: rows[0].id,
+            nombre: rows[0].nombre,
+            apellido: rows[0].apellido,
+            generos: generosSeparados,
+            peliculasPorGenero: peliculasPorGenero
+        });
+
+    } catch (error) {
+        console.error('Hubo un error al obtener los datos del usuario:', error);
+        res.status(500).json({ error: 'Hubo un error al obtener los datos del usuario' });
+    }
+});
+
+// Ruta para manejar la búsqueda por nombre
+router.get('/buscar', async (req, res) => {
+    const nombreBusqueda = req.query.nombre;
+  
+    try {
+      const consulta = 'SELECT id, nombre, img FROM catalogo WHERE nombre = ?';
+      const [rows] = await pool.query(consulta, [nombreBusqueda]);
+  
+      res.render('profileUser', { resultados: rows });
+    } catch (error) {
+      console.error('Error al ejecutar la consulta: ', error);
+      res.status(500).send('Error en el servidor');
+    }
+  });
+
 
 export default router;

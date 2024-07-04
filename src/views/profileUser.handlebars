@@ -1,14 +1,20 @@
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil del Usuario</title>
+    <title>Perfil de Usuario</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
     <main class="mainUserProfile">
-        <h1 class="tituloPrincipal">Que alegria encontrarnos por acá <br> {{ nombre }} {{ apellido }} </h1>
+        <h1 class="tituloPrincipal">¡Qué alegría encontrarnos por acá! <br> {{ nombre }} {{ apellido }} </h1>
         <nav class="navegacion">
             <ul class="listaNav">
                 <li class="listaItem"><a class="linkNav administradorPeliculas" href="/profile/{{id}}">Ir a mi
@@ -17,69 +23,141 @@
         </nav>
     </main>
 
-    <!--   <section data-aos="fade-up" data-aos-offset="300" data-aos-delay="50" data-aos-duration="1000"
+    <section data-aos="fade-up" data-aos-offset="300" data-aos-delay="50" data-aos-duration="1000"
         class="buscadorPrincipal">
 
         <section class="main">
             <section data-aos="fade-up" data-aos-offset="300" data-aos-delay="50" data-aos-duration="1000"
                 class="buscadorPrincipal">
                 <h2 class="tituloSection">¿Qué estás buscando para ver?</h2>
-                <form class="buscadorPeliculas" action="/results?nombre={{nombre}}a" method="get">
+                <form class="buscadorPeliculas" action="/buscar" method="get">
                     <input class="inputBuscador" type="text" placeholder="Buscar..." id="buscar" name="nombre">
                     <input class="botonBuscador" type="submit" value="Buscar">
                 </form>
-            </section>
-        </section>
--->
-    <hr>
-
-    <main class="main">
-        <section id="tendencias" data-aos="fade-up" data-aos-offset="400" data-aos-delay="100" data-aos-duration="1000"
-            class="peliculasTendencia">
-            <h3 class="tituloSection">Recomendaciones para vos</h3>
-            <h2 class="subtituloSection">{{ generos }}</h2>
-            <br><br>
-            <div class="peliculas">
-                <div class="peliculas">
-                    {{#each peliculasPorGenero}}
-                    {{#each peliculas}}
-                    <a href="/detail/{{id}}">
-                        <div class="pelicula">
-                            <div>
-                                <img class="imgTendencia" src="../images/pages/catalogue/{{img}}" alt="{{ nombre }}"
-                                    loading="lazy">
-                                <div class="tituloPelicula">
-                                    <h4>{{ nombre }}</h4>
+                {{#if resultados.length}}
+                <section id="tendencias" data-aos="fade-up" data-aos-offset="400" data-aos-delay="100"
+                    data-aos-duration="1000" class="peliculasTendencia">
+                    <section class="resultadosBusqueda">
+                        <h3>Resultados de búsqueda</h3>
+                        <br>
+                        <ul>
+                            {{#each resultados}}
+                            <div class="peliculas">
+                                <div class="peliculas">
+                                    <a href="/detail/{{id}}">
+                                        <div class="pelicula">
+                                            <div>
+                                                <img class="imgTendencia" src="../images/pages/catalogue/{{ this.img }}"
+                                                    alt="{{ this.nombre }}" loading="lazy">
+                                                <div class="tituloPelicula">
+                                                    <h4>{{ this.nombre }}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
+                            {{/each}}
+                        </ul>
+                    </section>
+                    {{else}}
+                    <p>No se encontraron películas que coincidan con tu búsqueda.</p>
+                    {{/if}}
+                </section>
+            </section>
+            <br><br><br><br><br>
+            <hr>
+            <section class="main" id="sectionLogin">
+                <section id="tendencias" data-aos="fade-up" data-aos-offset="400" data-aos-delay="100"
+                    data-aos-duration="1000" class="peliculasTendencia">
+                    <h3 class="tituloSection">Recomendaciones para vos</h3>
+                    <h2 class="subtituloSection"> {{ nombresGenerosPreferidos }} </h2>
+                    <br><br>
+                    <div class="peliculas">
+                        <div class="peliculas">
+                            {{#each peliculas}}
+                            <a href="/detail/{{id}}">
+                                <div class="pelicula">
+                                    <div>
+                                        <img class="imgTendencia" src="../images/pages/catalogue/{{ this.img }}"
+                                            alt="{{ this.nombre }}" loading="lazy">
+                                        <div class="tituloPelicula">
+                                            <h4>{{ this.nombre }}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            {{/each}}
                         </div>
-                    </a>
-                    {{/each}}
-                    {{/each}}
-                </div>
-            </div>
-            <br><br>
-        </section>
-    </main>
+                    </div>
+                </section>
+                <br><br>
+            </section>
+            <section class="main hidden" id="sectionProfileUser">
+                <section id="tendencias" data-aos="fade-up" data-aos-offset="400" data-aos-delay="100"
+                    data-aos-duration="1000" class="peliculasTendencia">
+                    <h3 class="tituloSection">Recomendaciones para vos</h3>
+                    <h2 class="subtituloSection">{{ generos }}</h2>
+                    <br><br>
+                    <div class="peliculas">
+                        <div class="peliculas">
+                            {{#each peliculasPorGenero}}
+                            {{#each peliculas}}
+                            <a href="/detail/{{id}}">
+                                <div class="pelicula">
+                                    <div>
+                                        <img class="imgTendencia" src="../images/pages/catalogue/{{img}}"
+                                            alt="{{ nombre }}" loading="lazy">
+                                        <div class="tituloPelicula">
+                                            <h4>{{ nombre }}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            {{/each}}
+                            {{/each}}
+                        </div>
+                    </div>
+                    <br><br>
+                </section>
+            </section>
 
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var sectionLogin = document.getElementById("sectionLogin");
+                    var sectionProfileUser = document.getElementById("sectionProfileUser");
 
+                    function toggleSections() {
+                        if (window.location.pathname === '/login') {
+                            sectionLogin.classList.remove('hidden');
+                            sectionProfileUser.classList.add('hidden');
+                        } else {
+                            sectionLogin.classList.add('hidden');
+                            sectionProfileUser.classList.remove('hidden');
+                        }
+                    }
 
+                    toggleSections();
+                    window.addEventListener('popstate', toggleSections);
+                });
+            </script>
 
+            <script>
+                $(document).ready(function () {
+                    $('.buscadorPeliculas').submit(function (event) {
+                        event.preventDefault(); // Evita que el formulario se envíe automáticamente
 
+                        var nombre = $('#buscar').val(); // Obtiene el valor del campo de búsqueda
 
-
-
-
-
-
-
-
-
-    </section>
-
-
-
-
+                        // Realiza la solicitud al servidor
+                        $.get('/buscar-pelicula', { nombre: nombre }, function (data) {
+                            // Maneja la respuesta del servidor
+                            // Aquí puedes actualizar el DOM con los resultados obtenidos
+                            $('.resultadosBusqueda').html(data); // Suponiendo que 'resultadosBusqueda' es el contenedor donde mostrarás los resultados
+                        });
+                    });
+                });
+            </script>
 </body>
 
 </html>

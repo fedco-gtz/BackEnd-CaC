@@ -39,6 +39,8 @@
                 <div>
                     <a id="ayuda" class="ayuda" href="/register">Registrarse</a>
                 </div>
+                <div id="error-message" class="error-message" style="display: none;"></div>
+
             </form>
         </section>
     </main>
@@ -47,6 +49,28 @@
         AOS.init();
     </script>
     <script src="../js/sessionValidation.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const error = '{{error}}';
+            if (error) {
+                const errorMessageDiv = document.getElementById('error-message');
+                errorMessageDiv.textContent = error;
+                errorMessageDiv.style.display = 'block';
+
+                setTimeout(() => {
+                    errorMessageDiv.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+
+    <style>
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
 </body>
 
 </html>
