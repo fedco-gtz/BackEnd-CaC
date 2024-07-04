@@ -22,7 +22,6 @@
         </a>
         <ul class="listaNav">
             {{#if sessionStarted}}
-                <li class="listaItem"><a class="linkNav" href="/">Mi Perfil</a></li>
                 <li class="listaItem"><a class="linkNav cerrarSesion" href="/logout">Cerrar Sesión</a></li>
             {{else}}
                 <li class="listaItem"><a class="linkNav" href="#tendencias">Tendencias</a></li>
@@ -32,7 +31,6 @@
         </ul>
     </nav>
 </header>
-
     {{/unless}}
 
     {{{body}}}

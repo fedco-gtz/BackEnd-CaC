@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function() {
     if (localStorage.getItem('email') && localStorage.getItem('password')) {
         header.classList.add('sesionIniciada');
         listaNav.innerHTML = `
-            <li class="listaItem"><a class="linkNav" href="/profile/{{id}}">Mi Perfil</a></li>
             <li class="listaItem"><a class="linkNav cerrarSesion" href="/">Cerrar Sesión</a></li>
         `;
         

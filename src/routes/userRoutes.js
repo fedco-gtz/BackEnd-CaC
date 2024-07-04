@@ -35,8 +35,8 @@ router.post('/register', async (req, res) => {
         res.render('login', { isRegisterPage: true });
 
     } catch (error) {
-        console.error('Hubo un error al agregar el usuario:', error.message);
-        res.status(500).json({ error: 'Hubo un error al agregar el usuario' });
+        console.error('Ya existe una cuenta con el e-mail ingresado:', error.message);
+        res.render('register', { error: 'Ya existe una cuenta con el e-mail ingresado', isRegisterPage: true });
     }
 });
 
@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.error('Hubo un error al validar el usuario:', error.message);
-        res.status(500).json({ error: 'Hubo un error al validar el usuario' });
+        res.status(500).json({ error: 'Ya existe una cuenta asociada con ese email' });
     }
 });
 

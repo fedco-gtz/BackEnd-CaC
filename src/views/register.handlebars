@@ -7,59 +7,83 @@
             <span>CAC-Movies</span>
         </a>
 
-<main id="main" class="main">
-    <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
-        <form action="/register" method="post">
-            <h2 class="tituloRegistrarse">Registro</h2>
-            <div>
-                <input type="text" placeholder="Nombre" id="nombre" name="nombre">
-                <div class="error-text"></div>
-            </div>
-            <div>
-                <input type="text" placeholder="Apellido" id="apellido" name="apellido">
-                <div class="error-text"></div>
-            </div>
-            <div>
-                <input type="email" placeholder="Email" id="email" name="email">
-                <div class="error-text"></div>
-            </div>
-            <div>
-                <input type="password" placeholder="Contraseña" id="password" name="password">
-                <div class="error-text"></div>
-            </div>
-            <div>
-                <input type="date" placeholder="Fecha de Nacimiento" id="fechaNacimiento" name="fechaNacimiento">
-                <div class="error-text"></div>
-            </div>
-            <div>
-                <select name="pais" id="pais">
-                    <option value="Argentina">Argentina</option>
-                    <option value="Bolivia">Bolivia</option>
-                    <option value="Brasil">Brasil</option>
-                    <option value="Chile">Chile</option>
-                    <option value="Colombia">Colombia</option>
-                    <option value="Ecuador">Ecuador</option>
-                    <option value="Paraguay">Paraguay</option>
-                    <option value="Perú">Perú</option>
-                    <option value="Uruguay">Uruguay</option>
-                    <option value="Venezuela">Venezuela</option>
-                </select>
-                <div class="error-text"></div>
-            </div>
-            <div class="terminos">
-                <input class="check" type="checkbox" id="terminos" name="terminos">
-                <label class="textoCheck" for="terminos">Acepto términos y condiciones</label>
-                <div class="error-text"></div>
-            </div>
-            <div>
-                <input class="boton" type="submit" value="Registrarse">
-            </div>
-        </form>
-    </section>
-</main>
+        <main id="main" class="main">
+            <section data-aos="zoom-in" data-aos-duration="1000" class="seccionRegistrarse">
+                <form action="/register" method="post">
+                    <h2 class="tituloRegistrarse">Registro</h2>
+                    <div>
+                        <input type="text" placeholder="Nombre" id="nombre" name="nombre">
+                        <div class="error-text"></div>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Apellido" id="apellido" name="apellido">
+                        <div class="error-text"></div>
+                    </div>
+                    <div>
+                        <input type="email" placeholder="Email" id="email" name="email">
+                        <div class="error-text"></div>
+                    </div>
+                    <div>
+                        <input type="password" placeholder="Contraseña" id="password" name="password">
+                        <div class="error-text"></div>
+                    </div>
+                    <div>
+                        <input type="date" placeholder="Fecha de Nacimiento" id="fechaNacimiento"
+                            name="fechaNacimiento">
+                        <div class="error-text"></div>
+                    </div>
+                    <div>
+                        <select name="pais" id="pais">
+                            <option value="Argentina">Argentina</option>
+                            <option value="Bolivia">Bolivia</option>
+                            <option value="Brasil">Brasil</option>
+                            <option value="Chile">Chile</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Paraguay">Paraguay</option>
+                            <option value="Perú">Perú</option>
+                            <option value="Uruguay">Uruguay</option>
+                            <option value="Venezuela">Venezuela</option>
+                        </select>
+                        <div class="error-text"></div>
+                    </div>
+                    <div class="terminos">
+                        <input class="check" type="checkbox" id="terminos" name="terminos">
+                        <label class="textoCheck" for="terminos">Acepto términos y condiciones</label>
+                        <div class="error-text"></div>
+                    </div>
+                    <div>
+                        <input class="boton" type="submit" value="Registrarse">
+                    </div>
+                    <div id="error-message" class="error-message" style="display: none;"></div>
+                </form>
+            </section>
+        </main>
         <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
         <script>
             AOS.init();
         </script>
-   <script src="../js/registrationValidation.js"></script>
+        <script src="../js/registrationValidation.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                const error = '{{error}}';
+                if (error) {
+                    const errorMessageDiv = document.getElementById('error-message');
+                    errorMessageDiv.textContent = error;
+                    errorMessageDiv.style.display = 'block';
+
+                    setTimeout(() => {
+                        errorMessageDiv.style.display = 'none';
+                    }, 3000);
+                }
+            });
+        </script>
+
+        <style>
+            .error-message {
+                color: red;
+                margin-top: 10px;
+            }
+        </style>
 </body>
